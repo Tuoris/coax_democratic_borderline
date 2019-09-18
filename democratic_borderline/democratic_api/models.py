@@ -32,7 +32,7 @@ class BorderCrossing(models.Model):
     person = models.ForeignKey(
         Person, related_name="border_crossing", on_delete=models.CASCADE
     )
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     allowed = models.BooleanField()
 
     def __str__(self):
