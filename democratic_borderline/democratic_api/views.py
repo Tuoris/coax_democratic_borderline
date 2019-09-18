@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from democratic_api.models import Person
+from democratic_api.models import Person, BorderCrossing
 from democratic_api.serializers import PersonBorderCrossingSerializer
 
 
@@ -22,5 +23,14 @@ class PersonBorderCrossing(viewsets.ViewSet):
         serializer = PersonBorderCrossingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(serializer.data)
+            return Response(serializer.data)
         return Response(serializer.errors)
+
+
+class LatestPersonCrossedBorder(viewsets.ViewSet):
+    def list(self, request, *args, **kwargs):
+        latest_border_crossing = BorderCrossing.objects.all().order_by("-date").first()
+        latest_person_crossed_border = latest_border_crossing.person
+
+        serializer = PersonBorderCrossingSerializer(latest_person_crossed_border)
+        return Response(serializer.data)
