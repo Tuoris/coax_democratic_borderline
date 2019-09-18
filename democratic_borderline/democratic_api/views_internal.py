@@ -28,4 +28,3 @@ class NationalityViewSet(viewsets.ModelViewSet):
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
-

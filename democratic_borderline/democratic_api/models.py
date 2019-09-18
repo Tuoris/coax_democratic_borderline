@@ -29,7 +29,9 @@ class Person(models.Model):
 
 
 class BorderCrossing(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    person = models.ForeignKey(
+        Person, related_name="border_crossing", on_delete=models.CASCADE
+    )
     date = models.DateField(auto_now_add=True)
     allowed = models.BooleanField()
 
@@ -41,7 +43,9 @@ class BorderCrossing(models.Model):
 
 class ForbiddenStuff(models.Model):
     description = models.CharField(max_length=256)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    person = models.ForeignKey(
+        Person, related_name="forbidden_stuff", on_delete=models.CASCADE
+    )
     border_crossing = models.ForeignKey(BorderCrossing, on_delete=models.CASCADE)
 
     def __str__(self):
