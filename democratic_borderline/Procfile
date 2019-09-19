@@ -1,0 +1,1 @@
+web: cd democratic_borderline; python manage.py migrate; python manage.py filldb; python manage.py runserver 0.0.0.0:$PORT
